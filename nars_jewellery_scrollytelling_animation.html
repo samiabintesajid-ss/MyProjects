@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NARS Beauty & Luxury Jewellery Experience</title>
+  
+  <!-- Tailwind CSS Core -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Luxury Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg: #090909;
+      --color-gold: #D4AF37;
+      --color-pink: #f5a3b7;
+      --color-diamond: #ffb6c1;
+    }
+    
+    body {
+      background-color: var(--color-bg);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .font-luxury {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Elegant glassmorphic styling for details panels */
+    .glass-card {
+      background: rgba(12, 12, 12, 0.45);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Remove scrollbar while keeping functionality for app layout */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Custom high-end animations for sparkles and ambient glows */
+    @keyframes slow-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .spin-slow {
+      animation: slow-spin 20s linear infinite;
+    }
+
+    /* Sparkle effect over the diamond */
+    .sparkle {
+      position: absolute;
+      background: radial-gradient(circle, #fff 10%, transparent 70%);
+      transform: rotate(45deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="selection:bg-pink-900 selection:text-white">
+
+  <!-- Top Luxury Header Navigation -->
+  <header class="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+    <div class="flex flex-col">
+      <span class="font-luxury text-2xl md:text-3xl font-black tracking-[0.25em] text-white">NARS & CO.</span>
+      <span class="text-[9px] uppercase tracking-[0.4em] text-neutral-500 mt-1">Atelier of Beauty & Brilliance</span>
+    </div>
+    
+    <!-- Quick-jump state display -->
+    <div class="flex items-center gap-3 bg-neutral-900/90 border border-neutral-800/80 px-4 py-2 rounded-full backdrop-blur-md">
+      <div id="nav-badge" class="w-2.5 h-2.5 rounded-full bg-pink-400 animate-pulse"></div>
+      <span id="nav-stage-label" class="text-[10px] md:text-xs font-semibold tracking-widest text-neutral-300 uppercase">Stage I: Beauty Swatch</span>
+    </div>
+
+    <div class="flex items-center gap-6">
+      <span class="hidden md:inline text-xs tracking-widest text-neutral-400 uppercase font-light">The Masterpiece Collection</span>
+      <div class="w-8 h-5 flex flex-col justify-between cursor-pointer group">
+        <span class="h-[1px] w-full bg-white transition-transform group-hover:scale-x-75 origin-right"></span>
+        <span class="h-[1px] w-full bg-neutral-400"></span>
+        <span class="h-[1px] w-full bg-white transition-transform group-hover:scale-x-75 origin-right"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PINNED VIEWPORT: Contains the Fixed Animation Layers -->
+  <div id="pin-viewport" class="fixed inset-0 w-full h-screen overflow-hidden pointer-events-none z-10">
+    
+    <!-- LAYER 1: Background Massive Text (z-index: 10) -->
+    <div class="absolute inset-0 w-full h-full flex items-center justify-center z-10 select-none">
+      <h2 id="bg-text-beauty" class="font-luxury font-black text-[25vw] tracking-[0.1em] text-neutral-900/40 select-none uppercase transition-opacity duration-300">
+        Beauty
+      </h2>
+      <h2 id="bg-text-jewellery" class="font-luxury font-black text-[18vw] tracking-[0.05em] text-neutral-900/0 select-none uppercase absolute transition-opacity duration-300 opacity-0">
+        Jewellery
+      </h2>
+    </div>
+
+    <!-- LAYER 1.5: Ambient Glow Backing (z-index: 15) -->
+    <div class="absolute inset-0 w-full h-full flex items-center justify-center z-15 pointer-events-none">
+      <div id="ambient-glow" class="w-[30vw] h-[30vw] rounded-full bg-[var(--color-pink)]/15 filter blur-[120px] transition-colors duration-700"></div>
+    </div>
+
+    <!-- LAYER 1.8: Custom Procedural Swatch Brush Stroke (z-index: 18) -->
+    <div id="swatch-brush-layer" class="absolute inset-0 w-full h-full flex items-center justify-center z-18 opacity-0">
+      <svg class="w-[110vw] h-[100vh] filter drop-shadow(0 20px 40px rgba(0,0,0,0.6))" viewBox="0 0 1400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="blushGrad" x1="0%" y1="30%" x2="100%" y2="70%">
+            <stop offset="0%" stop-color="#bf435c" stop-opacity="0" />
+            <stop offset="30%" stop-color="#eb9b98" stop-opacity="0.9" />
+            <stop offset="50%" stop-color="#eb9b98" />
+            <stop offset="80%" stop-color="#f5a2b3" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#aa7b56" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M-100,450 C200,420 400,220 800,260 C1200,300 1300,520 1600,380 L1600,540 C1300,640 1100,440 800,380 C500,320 200,560 -100,580 Z" fill="url(#blushGrad)" />
+      </svg>
+    </div>
+
+    <!-- LAYER 2: Dual Product Model Layer (z-index: 20) -->
+    <div class="absolute inset-0 w-full h-full flex items-center justify-center z-20 pointer-events-none">
+      <div id="product-wrapper" class="relative w-[320px] md:w-[450px] h-[600px] md:h-[800px] flex items-center justify-center">
+        
+        <!-- Product A: NARS Multiple Stick -->
+        <img 
+          id="product-beauty" 
+          src="nars_pic.png" 
+          alt="NARS Multiple Stick" 
+          class="absolute max-h-[65%] w-auto object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] will-change-transform"
+          onerror="this.src='https://placehold.co/400x600/121212/e09f9d?text=NARS+Multiple'"
+        >
+
+        <!-- Product B: The Eternal Pink Diamond (Jewellery Stage) -->
+        <div id="product-jewellery-container" class="absolute w-full h-full flex items-center justify-center opacity-0 scale-50 pointer-events-none">
+          <!-- Sparkles surrounding the gemstone -->
+          <div class="sparkle w-6 h-6" style="top:30%; left:25%;"></div>
+          <div class="sparkle w-8 h-8" style="top:25%; right:20%;"></div>
+          <div class="sparkle w-5 h-5" style="bottom:28%; left:35%;"></div>
+          <div class="sparkle w-7 h-7" style="bottom:35%; right:25%;"></div>
+          
+          <img 
+            id="product-jewellery" 
+            src="pink-jewel_pic.png" 
+            alt="The Eternal Pink Diamond" 
+            class="max-h-[50%] w-auto object-contain drop-shadow-[0_0_80px_rgba(245,163,183,0.6)] will-change-transform"
+            onerror="this.src='https://placehold.co/500x500/121212/ffb6c1?text=Eternal+Pink+Diamond'"
+          >
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LAYER 3: Scrollable Story Content Stack (z-index: 30) -->
+  <main class="relative z-30">
+
+    <!-- Section 1: Beauty Stage Intro (0% - 25% Scroll) -->
+    <section class="h-screen flex items-center px-8 md:px-24">
+      <div class="max-w-xl">
+        <span class="text-xs uppercase tracking-[0.3em] text-neutral-500 font-semibold">Stage I : Premium Beauty</span>
+        <h1 class="text-6xl md:text-8xl font-light tracking-tight mt-3 leading-none font-luxury">
+          DYNAMIC<br><span class="font-bold text-neutral-300">SWATCH</span>
+        </h1>
+        <p class="text-neutral-400 mt-6 tracking-wide max-w-sm leading-relaxed text-sm md:text-base">
+          Smooth glide, infinite glow. Experience a seamless transition from weightless cream-to-powder cosmetics.
+        </p>
+        <div class="mt-8 flex gap-4">
+          <button onclick="scrollToTarget(1)" class="px-6 py-3 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors rounded-sm">
+            Discover Texture
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Beauty Stage Details (25% - 50% Scroll) -->
+    <section id="section-beauty-detail" class="h-screen flex items-center justify-start px-8 md:px-24">
+      <!-- Translucent luxury info card -->
+      <div id="beauty-glass-card" class="max-w-md glass-card p-8 rounded-2xl border border-white/10 opacity-0 transform translate-y-12 transition-all duration-700">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="h-[1px] w-8 bg-rose-400"></span>
+          <span class="text-[10px] tracking-[0.3em] text-rose-300 uppercase font-bold">Iconic Formula</span>
+        </div>
+        <h2 class="text-4xl font-bold mt-2 mb-4 font-luxury uppercase tracking-wider">Ultra-Creamy</h2>
+        <ul class="text-neutral-300 space-y-3.5 text-xs leading-relaxed list-disc list-inside">
+          <li>Melts effortlessly into the skin with organic brush-mark diffusion</li>
+          <li>Enriched with high-performance antioxidant protection</li>
+          <li>Lightweight matte veil that glows under ambient reflection</li>
+          <li>Adapts dynamically to complexions for zero caking</li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center text-[10px] uppercase tracking-widest text-neutral-500">
+          <span>Active Preset: State B</span>
+          <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Jewellery Stage Intro (50% - 75% Scroll) -->
+    <section id="section-jewellery-intro" class="h-screen flex items-center justify-end px-8 md:px-24">
+      <div id="jewellery-intro-card" class="max-w-xl text-right opacity-0 transform translate-y-12 transition-all duration-700">
+        <span class="text-xs uppercase tracking-[0.3em] text-pink-400 font-semibold">Stage II : Pure Opulence</span>
+        <h1 class="text-6xl md:text-8xl font-light tracking-tight mt-3 leading-none font-luxury">
+          ETERNAL<br><span class="font-bold text-white">BRILLIANCE</span>
+        </h1>
+        <p class="text-neutral-400 mt-6 tracking-wide ml-auto max-w-sm leading-relaxed text-sm md:text-base">
+          From skin-deep glow to diamond-cut fire. As you slide further, behold the transition from soft cosmetics to raw luxury.
+        </p>
+        <div class="mt-8 flex justify-end gap-4">
+          <button onclick="scrollToTarget(3)" class="px-6 py-3 border border-pink-400 text-pink-400 text-[10px] font-bold uppercase tracking-widest hover:bg-pink-400/10 transition-colors rounded-sm">
+            Behold Gemstone
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Jewellery Stage Details (75% - 100% Scroll) -->
+    <section id="section-jewellery-detail" class="h-screen flex items-center justify-start px-8 md:px-24">
+      <!-- Luxury glassmorphic jewellery card -->
+      <div id="jewellery-glass-card" class="max-w-md glass-card p-8 rounded-2xl border border-pink-500/20 opacity-0 transform translate-y-12 transition-all duration-700">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="h-[1px] w-8 bg-pink-400"></span>
+          <span class="text-[10px] tracking-[0.3em] text-pink-300 uppercase font-bold">High Jewellery</span>
+        </div>
+        <h2 class="text-4xl font-bold mt-2 mb-4 font-luxury uppercase tracking-wider">The Eternal Pink</h2>
+        <ul class="text-neutral-300 space-y-3.5 text-xs leading-relaxed list-disc list-inside">
+          <li>Extremely rare fancy vivid purplish-pink gemstone</li>
+          <li>Unrivaled precision-cut facets displaying deep color fire</li>
+          <li>Internally flawless clarity with absolute brilliance refractions</li>
+          <li>Set on an unblemished bespoke platinum micro-setting</li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center text-[10px] uppercase tracking-widest text-neutral-500">
+          <span>Active Preset: High Carat</span>
+          <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Unified Finale Call To Action (100% Scroll) -->
+    <section class="h-screen flex items-center justify-center text-center">
+      <div class="max-w-2xl px-6">
+        <span class="text-[10px] tracking-[0.5em] text-neutral-500 uppercase mb-4 block">Crafting the Extraordinary</span>
+        <h2 class="text-4xl md:text-6xl font-light font-luxury mb-4 leading-tight">BEAUTY THAT GLOWS.<br><span class="font-bold text-pink-400">BRILLIANCE THAT LASTS.</span></h2>
+        <p class="text-neutral-400 max-w-md mx-auto mb-10 text-sm leading-relaxed">
+          The ultimate synergy of high-fashion cosmetics and precious diamonds. Curate your perfect luxury statement.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button onclick="scrollToTarget(0)" class="px-8 py-4 bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-neutral-200 transition-all rounded-sm min-w-[200px]">
+            Replay Story
+          </button>
+          <a href="#" class="px-8 py-4 border border-neutral-700 text-white font-semibold text-xs tracking-widest uppercase hover:bg-white/5 transition-all rounded-sm min-w-[200px]">
+            Acquire Piece
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Scroll Stage Indicators on the bottom left corner -->
+  <div class="fixed bottom-6 left-6 z-40 hidden lg:flex flex-col gap-1.5 text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-semibold bg-black/50 p-4 rounded-xl border border-white/5 backdrop-blur-sm pointer-events-none">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
+      <span class="text-white">Active Stage:</span> <span id="hud-stage-text" class="text-pink-300">Beauty Reveal</span>
+    </div>
+    <div><span>Calculated Rotation:</span> <span id="hud-rot-text" class="text-neutral-300">0°</span></div>
+    <div><span>Calculated Scale:</span> <span id="hud-scale-text" class="text-neutral-300">1.0x</span></div>
+  </div>
+
+  <!-- Progress bar bottom right -->
+  <div class="fixed bottom-8 right-8 z-40 flex items-center gap-4 pointer-events-none">
+    <span class="text-[10px] tracking-widest text-neutral-500 uppercase">Interactive Scroll</span>
+    <div class="relative w-32 h-[2px] bg-neutral-800">
+      <div id="scroll-progress-line" class="absolute top-0 left-0 h-full bg-pink-400 transition-all duration-300" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- GSAP Core & ScrollTrigger Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Dynamic Navigation controls mapping
+    const navStageLabel = document.getElementById("nav-stage-label");
+    const navBadge = document.getElementById("nav-badge");
+    const hudStageText = document.getElementById("hud-stage-text");
+    const hudRotText = document.getElementById("hud-rot-text");
+    const hudScaleText = document.getElementById("hud-scale-text");
+    const scrollProgressLine = document.getElementById("scroll-progress-line");
+
+    // helper function to trigger scroll to specific percentage steps
+    function scrollToTarget(sectionIndex) {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({
+        top: scrollHeight * (sectionIndex / 4),
+        behavior: 'smooth'
+      });
+    }
+
+    // 1. MASTER TIMELINE tied to page scroll progress
+    const masterTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.8, // Fluid inertia dampening
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // Update visual indicator progress line
+          scrollProgressLine.style.width = `${progress * 100}%`;
+
+          // Dynamic Header HUD label and theme switching based on active frame
+          if (progress < 0.25) {
+            navStageLabel.textContent = "Stage I: Beauty Swatch";
+            hudStageText.textContent = "Beauty Reveal";
+            navBadge.style.backgroundColor = "#ffb6c1";
+          } else if (progress < 0.50) {
+            navStageLabel.textContent = "Stage I: Creamy Swatch";
+            hudStageText.textContent = "Ultra-Creamy (Look B)";
+            navBadge.style.backgroundColor = "#f5a2b3";
+          } else if (progress < 0.75) {
+            navStageLabel.textContent = "Stage II: Jewellery Reveal";
+            hudStageText.textContent = "Diamond Reveal";
+            navBadge.style.backgroundColor = "#ff69b4";
+          } else {
+            navStageLabel.textContent = "Stage II: Eternal Brilliance";
+            hudStageText.textContent = "Pure Brilliance";
+            navBadge.style.backgroundColor = "#ffffff";
+          }
+        }
+      }
+    });
+
+    // 2. STAGE I: NARS Beauty Segment (Progress 0% to 50%)
+    masterTimeline
+      // Phase 1 (0% -> 25%): beauty reveals, tilts and rotates matching "Look B" mockup specs
+      .to("#product-beauty", {
+        rotation: -125,
+        scale: 1.1,
+        x: "-12vw",
+        y: "-2vh",
+        duration: 1,
+        ease: "none",
+        onUpdate: function() {
+          hudRotText.textContent = `${Math.round(gsap.getProperty("#product-beauty", "rotation"))}°`;
+          hudScaleText.textContent = `${Number(gsap.getProperty("#product-beauty", "scale")).toFixed(1)}x`;
+        }
+      }, 0)
+      .to("#bg-text-beauty", {
+        x: "-15vw",
+        color: "#f5a3b7", // Soft warm tint shift matching the mockup
+        duration: 1,
+        ease: "none"
+      }, 0)
+      .to("#swatch-brush-layer", {
+        opacity: 0.85,
+        scale: 1.1,
+        x: "-5vw",
+        duration: 1,
+        ease: "none"
+      }, 0)
+      // Section 2 text container reveal
+      .to("#beauty-glass-card", {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "none"
+      }, 0.5)
+
+      // Phase 2 (25% -> 50%): transitions to Look B horizontal position
+      .to("#product-beauty", {
+        rotation: 210, // Full horizontal flip representing state B spec
+        scale: 0.95,
+        x: "15vw",
+        y: "4vh",
+        duration: 1,
+        ease: "none",
+        onUpdate: function() {
+          hudRotText.textContent = `${Math.round(gsap.getProperty("#product-beauty", "rotation"))}°`;
+          hudScaleText.textContent = `${Number(gsap.getProperty("#product-beauty", "scale")).toFixed(1)}x`;
+        }
+      }, 1)
+      .to("#bg-text-beauty", {
+        x: "-35vw",
+        opacity: 0.1,
+        duration: 1,
+        ease: "none"
+      }, 1)
+      .to("#swatch-brush-layer", {
+        opacity: 0.95,
+        scale: 1.25,
+        x: "-15vw",
+        duration: 1,
+        ease: "none"
+      }, 1)
+
+      // 3. THE TRANSITION BRIDGE (Progress 50% to 60%)
+      // Fade out Beauty, slide out Beauty background text, bring in Jewellery assets
+      .to("#product-beauty", {
+        opacity: 0,
+        scale: 0.4,
+        y: "15vh",
+        duration: 0.5,
+        ease: "none"
+      }, 2)
+      .to("#beauty-glass-card", {
+        opacity: 0,
+        y: -50,
+        duration: 0.4,
+        ease: "none"
+      }, 2)
+      .to("#swatch-brush-layer", {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.5,
+        ease: "none"
+      }, 2)
+      .to("#bg-text-beauty", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "none"
+      }, 2)
+
+      // Bring in Jewellery backdrop text
+      .to("#bg-text-jewellery", {
+        opacity: 0.4,
+        color: "#ffffff",
+        x: "10vw",
+        duration: 0.5,
+        ease: "none"
+      }, 2)
+      .to("#ambient-glow", {
+        backgroundColor: "#ffb6c1", // Shift to light reflective pink diamond tint
+        scale: 1.8,
+        duration: 0.5,
+        ease: "none"
+      }, 2)
+
+      // 4. STAGE II: Jewellery Segment (Progress 60% to 100%)
+      // Reveal the Pink Diamond rotating intensely as we enter Stage II
+      .to("#product-jewellery-container", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "none"
+      }, 2.2)
+      .to("#product-jewellery", {
+        rotation: 360, // Classic diamond facet rotation sparkle
+        duration: 1.5,
+        ease: "none",
+        onUpdate: function() {
+          hudRotText.textContent = `${Math.round(gsap.getProperty("#product-jewellery", "rotation"))}°`;
+          hudScaleText.textContent = `${Number(gsap.getProperty("#product-jewellery-container", "scale")).toFixed(1)}x`;
+        }
+      }, 2.2)
+      // Reveal Section 3 Jewellery Intro details card
+      .to("#jewellery-intro-card", {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "none"
+      }, 2.5)
+
+      // Transitioning to diamond macro-spec detail level (final zoom)
+      .to("#product-jewellery-container", {
+        scale: 1.35, // Giant macro focus
+        x: "-12vw",
+        y: "-5vh",
+        duration: 1,
+        ease: "none"
+      }, 3)
+      .to("#product-jewellery", {
+        rotation: 720, // Continual gemstone spin for light dispersion effect
+        duration: 1,
+        ease: "none",
+        onUpdate: function() {
+          hudRotText.textContent = `${Math.round(gsap.getProperty("#product-jewellery", "rotation"))}°`;
+          hudScaleText.textContent = `${Number(gsap.getProperty("#product-jewellery-container", "scale")).toFixed(1)}x`;
+        }
+      }, 3)
+      .to("#bg-text-jewellery", {
+        x: "-20vw",
+        opacity: 0.15,
+        duration: 1,
+        ease: "none"
+      }, 3)
+      .to("#jewellery-intro-card", {
+        opacity: 0,
+        y: -50,
+        duration: 0.4,
+        ease: "none"
+      }, 3)
+      // Reveal the final Jewellery detail card overlay
+      .to("#jewellery-glass-card", {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "none"
+      }, 3.4);
+
+    // Dynamic sparkle trigger sequence over the gemstone facets
+    const sparklesList = document.querySelectorAll(".sparkle");
+    setInterval(() => {
+      const activeStage = hudStageText.textContent;
+      if (activeStage.includes("Diamond") || activeStage.includes("Brilliance")) {
+        // Sparkle random gemstones only when in Jewellery stages
+        const randomSpark = sparklesList[Math.floor(Math.random() * sparklesList.length)];
+        gsap.timeline()
+          .to(randomSpark, { opacity: 0.8, scale: 1.3, duration: 0.3 })
+          .to(randomSpark, { opacity: 0, scale: 0.5, duration: 0.4 });
+      }
+    }, 900);
+
+  </script>
+</body>
+</html>
