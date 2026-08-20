@@ -1,0 +1,1 @@
+When you download all three files just open any one of the mp3 audio file in your browser and then copy the URL and paste it in the Mixtape Player Website and you can play that song. Enjoy!
